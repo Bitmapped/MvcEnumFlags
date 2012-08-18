@@ -1,0 +1,1 @@
+﻿This code includes aspects of Darin Dimitrov's code at http://stackoverflow.com/questions/9264927/model-bind-list-of-enum-flags.
