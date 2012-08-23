@@ -51,7 +51,7 @@ namespace MvcEnumFlags
                     checkbox.Attributes["type"] = "checkbox";
                     checkbox.Attributes["value"] = item.ToString();
                     var model = htmlHelper.ViewData.Model as Enum;
-                    if (model.HasFlag(item))
+                    if ((model != null) && (model.HasFlag(item)))
                     {
                         checkbox.Attributes["checked"] = "checked";
                     }
