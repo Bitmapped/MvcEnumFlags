@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using System.Web;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
+using System.Web;
+using System.Web.Mvc;
 
 namespace MvcEnumFlags
 {
@@ -50,7 +48,7 @@ namespace MvcEnumFlags
                     checkbox.Attributes["name"] = name;
                     checkbox.Attributes["type"] = "checkbox";
                     checkbox.Attributes["value"] = item.ToString();
-                    var model = htmlHelper.ViewData.Model as Enum;
+                    var model = metadata.Model as Enum;
                     if ((model != null) && (model.HasFlag(item)))
                     {
                         checkbox.Attributes["checked"] = "checked";
@@ -83,7 +81,7 @@ namespace MvcEnumFlags
 
                     // Add line break.
                     sb.AppendLine("<br />");
-                }                
+                }
             }
 
             return new HtmlString(sb.ToString());
