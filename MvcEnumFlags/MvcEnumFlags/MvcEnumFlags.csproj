@@ -82,7 +82,6 @@
     <Content Include="Licenses.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MvcEnumFlags.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

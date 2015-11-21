@@ -20,8 +20,8 @@ namespace MvcEnumFlags
         /// <returns></returns>
         public static IHtmlString CheckBoxesForEnumFlagsFor<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TEnum>> expression)
         {
-            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
-            Type enumModelType = metadata.ModelType;
+            var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
+            var enumModelType = metadata.ModelType;
 
             // Check to make sure this is an enum.
             if (!enumModelType.IsEnum)
@@ -33,11 +33,10 @@ namespace MvcEnumFlags
             var sb = new StringBuilder();
             foreach (Enum item in Enum.GetValues(enumModelType))
             {
-                if (Convert.ToInt32(item) != 0)
+                if (Convert.ToInt64(item) != 0)
                 {
                     var ti = htmlHelper.ViewData.TemplateInfo;
                     var id = ti.GetFullHtmlFieldId(item.ToString());
-                    var name = ti.GetFullHtmlFieldName(string.Empty);
                     var label = new TagBuilder("label");
                     label.Attributes["for"] = id;
                     var field = item.GetType().GetField(item.ToString());
@@ -45,7 +44,7 @@ namespace MvcEnumFlags
                     // Add checkbox.
                     var checkbox = new TagBuilder("input");
                     checkbox.Attributes["id"] = id;
-                    checkbox.Attributes["name"] = name;
+                    checkbox.Attributes["name"] = metadata.PropertyName;
                     checkbox.Attributes["type"] = "checkbox";
                     checkbox.Attributes["value"] = item.ToString();
                     var model = metadata.Model as Enum;
@@ -68,14 +67,7 @@ namespace MvcEnumFlags
                         // Check to see if Display attribute has been set for item.
                         var display = field.GetCustomAttributes(typeof(DisplayAttribute), true)
                             .FirstOrDefault() as DisplayAttribute;
-                        if (display != null)
-                        {
-                            label.SetInnerText(display.Name);
-                        }
-                        else
-                        {
-                            label.SetInnerText(item.ToString());
-                        }
+                        label.SetInnerText((display != null) ? display.Name : item.ToString());
                     }
                     sb.AppendLine(label.ToString());
 
