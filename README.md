@@ -13,7 +13,7 @@ This project includes two C# classes:
 This project is available on [NuGet](https://www.nuget.org/packages/MvcEnumFlags/).
 
 ## Usage instructions
-### Getting Started
+### Getting started
 1. Add **MvcEnumFlags.dll** as a reference in your project.
 2. You must register the model binder for each enum you are going to use in **global.asax.cs** under `ApplicationStart()`.  See below for examples.
 
