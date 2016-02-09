@@ -1,3 +1,4 @@
+# License
 The MIT License (MIT)
 
 Copyright (c) 2016, Brian M. Powell
@@ -20,6 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
----
+# Included content
 
-This code includes aspects of Darin Dimitrov's solution at http://stackoverflow.com/questions/9264927/ . StackOverflow is licensed CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0/).
+This code includes aspects of Darin Dimitrov's solution at http://stackoverflow.com/questions/9264927/ .
+StackOverflow content is licensed CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0/).
