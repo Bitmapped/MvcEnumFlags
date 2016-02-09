@@ -88,9 +88,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Licenses.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="NuGet\MvcEnumFlags.1.1.0.nupkg" />
     <None Include="packages.config" />
   </ItemGroup>
