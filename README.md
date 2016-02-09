@@ -13,11 +13,11 @@ This project includes two C# classes:
 This project is available on [NuGet](https://www.nuget.org/packages/MvcEnumFlags/).
 
 ## Usage instructions
-### Getting Started
+### Getting started
 1. Add **MvcEnumFlags.dll** as a reference in your project.
 2. You must register the model binder for each enum you are going to use in **global.asax.cs** under `ApplicationStart()`.  See below for examples.
 
-### Registering the Model Binder
+### Registering the model binder
 
 You must register the model binder for each enum type in global.asax.cs so that MVC knows to use `EnumFlagsModelBinder()` with it.
 
@@ -26,7 +26,7 @@ In the `Application_Start()` method, add the following line:
 ModelBinders.Binders.Add(typeof(MyEnumType), new EnumFlagsModelBinder());
 ```
 
-### Using the Flags
+### Using the flags
 
 #### In the controller
 
