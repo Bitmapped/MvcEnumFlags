@@ -1,5 +1,5 @@
 # MvcEnumFlags
-C#/MVC model binder and HtmlHelper extensions for working with flags-attribute enum values.
+ASP.NET MVC model binder and HtmlHelper extensions for working with flags-attribute enum values.
 
 ## What's inside
 This project includes two C# classes:
