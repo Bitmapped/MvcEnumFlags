@@ -17,7 +17,7 @@ namespace MvcEnumFlags
         /// </summary>
         /// <typeparam name="TModel">Type of flag enum.</typeparam>
         /// <param name="htmlHelper">Html helper.</param>
-        /// <returns></returns>
+        /// <returns>Html code for checkboxes.</returns>
         public static IHtmlString CheckBoxesForEnumFlagsFor<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TEnum>> expression)
         {
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
