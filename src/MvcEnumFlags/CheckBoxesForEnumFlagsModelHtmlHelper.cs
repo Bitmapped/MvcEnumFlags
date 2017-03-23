@@ -22,6 +22,8 @@ namespace MvcEnumFlags
         {
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
             var enumModelType = metadata.ModelType;
+            var expressionText = ExpressionHelper.GetExpressionText((LambdaExpression)expression);
+            string fullHtmlFieldName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(expressionText);
 
             // Check to make sure this is an enum.
             if (!enumModelType.IsEnum)
@@ -44,7 +46,7 @@ namespace MvcEnumFlags
                     // Add checkbox.
                     var checkbox = new TagBuilder("input");
                     checkbox.Attributes["id"] = id;
-                    checkbox.Attributes["name"] = metadata.PropertyName;
+                    checkbox.Attributes["name"] = fullHtmlFieldName;
                     checkbox.Attributes["type"] = "checkbox";
                     checkbox.Attributes["value"] = item.ToString();
                     var model = metadata.Model as Enum;
