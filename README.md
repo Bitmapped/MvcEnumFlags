@@ -34,9 +34,25 @@ There is nothing special to do in the controller.  With the model binder registe
 
 #### In the view
 
-MVC will automatically call MvcEnumFlags to display enum types you've registered in **global.asax.cs** when you use `Html.EditorFor()`.
+##### Using CheckBoxesForEnumFlagsFor()
+To include enum checkboxes in your view, you can call the `Html.CheckBoxesForEnumFlagsFor()` method directly:
+```
+@Html.CheckBoxesForEnumFlagsFor(model => model.MyEnumTypeProperty)
+```
 
-The following is an example of displaying the flags checkbox with a registered enum.
+##### Using EditorFor()
+If you prefer using `Html.EditorFor()` in your views, annotate your property with the `UIHint` attribute:
+```
+[UIHint("EnumCheckboxes")]
+public MyEnumType MyEnumTypeProperty { get; set; }
+```
+        
+You can then create an EditorTemplate named `Views\Shared\EditorTemplates\EnumCheckboxes.cshtml` that MVC will use to display the editor for properties with a `UIHint` attribute of `EnumCheckboxes`:
+```
+@Html.CheckBoxesForEnumFlagsFor(m => m)
+```
+
+In your view, call `Html.EditorFor()` as you would for a textbox or other regular property:
 ```
 @Html.EditorFor(model => model.MyEnumTypeProperty)
 ```
