@@ -34,9 +34,7 @@ There is nothing special to do in the controller.  With the model binder registe
 
 #### In the view
 
-MVC will automatically call MvcEnumFlags to display enum types you've registered in **global.asax.cs** when you use `Html.EditorFor()`.
-
-The following is an example of displaying the flags checkbox with a registered enum.
+The following is an example of displaying the flags checkbox with a registered enum:
 ```
-@Html.EditorFor(model => model.MyEnumTypeProperty)
+@Html.CheckBoxesForEnumFlagsFor(model => model.MyEnumTypeProperty)
 ```
