@@ -26,6 +26,29 @@ In the `Application_Start()` method, add the following line:
 ModelBinders.Binders.Add(typeof(MyEnumType), new EnumFlagsModelBinder());
 ```
 
+### Add the namespace
+You must let Razor know to use the `MvcEnumFlags` namespace. You can do this in one of two ways.
+
+#### Option 1: Add namespace to views\web.config
+Edit your views\web.config file to include the namespace:
+```
+<configuration>
+  <system.web.webPages.razor>
+    <pages>
+      <namespaces>
+        <add namespace="MvcEnumFlags" />
+      </namespaces>
+    </pages>
+  </system.web.webPages.razor>
+</configuration>
+```
+
+#### Option 2: Add a using directive to your views
+Instead of editing the views\web.config file, you can add a using directive directly to the Razor views that use MvcEnumFlags:
+```
+@using MvcEnumFlags
+````
+
 ### Using the flags
 
 #### In the controller
