@@ -58,9 +58,14 @@ There is nothing special to do in the controller.  With the model binder registe
 #### In the view
 
 ##### Using CheckBoxesForEnumFlagsFor()
+
 To include enum checkboxes in your view, you can call the `Html.CheckBoxesForEnumFlagsFor()` method directly:
 ```
 @Html.CheckBoxesForEnumFlagsFor(model => model.MyEnumTypeProperty)
+```
+Make sure you add a using directive in the view as needed. 
+```
+@using MvcEnumFlags
 ```
 
 ##### Using EditorFor()
