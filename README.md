@@ -19,7 +19,7 @@ This project is available on [NuGet](https://www.nuget.org/packages/MvcEnumFlags
 
 ### Registering the model binder
 
-You must register the model binder for each enum type in global.asax.cs so that MVC knows to use `EnumFlagsModelBinder()` with it.
+You must register the model binder for each enum type in **global.asax.cs** so that MVC knows to use `EnumFlagsModelBinder()` with it.
 
 In the `Application_Start()` method, add the following line:
 ```
@@ -29,8 +29,8 @@ ModelBinders.Binders.Add(typeof(MyEnumType), new EnumFlagsModelBinder());
 ### Add the namespace
 You must let Razor know to use the `MvcEnumFlags` namespace. You can do this in one of two ways.
 
-#### Option 1: Add namespace to views\web.config
-Edit your views\web.config file to include the namespace:
+#### Option 1: Add namespace to **Views\web.config**
+Edit your **Views\web.config** file to include the namespace:
 ```
 <configuration>
   <system.web.webPages.razor>
@@ -44,7 +44,7 @@ Edit your views\web.config file to include the namespace:
 ```
 
 #### Option 2: Add a using directive to your views
-Instead of editing the views\web.config file, you can add a using directive directly to the Razor views that use MvcEnumFlags:
+Instead of editing the **Views\web.config** file, you can add a using directive directly to the Razor views that use MvcEnumFlags:
 ```
 @using MvcEnumFlags
 ````
@@ -70,7 +70,7 @@ If you prefer using `Html.EditorFor()` in your views, annotate your property wit
 public MyEnumType MyEnumTypeProperty { get; set; }
 ```
         
-You can then create an EditorTemplate named `Views\Shared\EditorTemplates\EnumCheckboxes.cshtml` that MVC will use to display the editor for properties with a `UIHint` attribute of `EnumCheckboxes`:
+You can then create an EditorTemplate named **Views\Shared\EditorTemplates\EnumCheckboxes.cshtml** that MVC will use to display the editor for properties with a `UIHint` attribute of `EnumCheckboxes`:
 ```
 @Html.CheckBoxesForEnumFlagsFor(m => m)
 ```
