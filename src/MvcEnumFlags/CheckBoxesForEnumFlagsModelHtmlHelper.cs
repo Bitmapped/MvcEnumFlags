@@ -15,20 +15,22 @@ namespace MvcEnumFlags
         /// Creates checkboxes for flag enums.
         /// Based on implementation at http://stackoverflow.com/questions/9264927/model-bind-list-of-enum-flags.
         /// </summary>
-        /// <typeparam name="TModel">Type of flag enum.</typeparam>
+        /// <typeparam name="TModel">Type of flag enum</typeparam>
+        /// <typeparam name="TEnum"></typeparam>
         /// <param name="htmlHelper">Html helper.</param>
+        /// <param name="expression">Item to generate checkboxes for</param>
         /// <returns>Html code for checkboxes.</returns>
         public static IHtmlString CheckBoxesForEnumFlagsFor<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TEnum>> expression)
         {
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
             var enumModelType = metadata.ModelType;
-            var expressionText = ExpressionHelper.GetExpressionText((LambdaExpression)expression);
-            string fullHtmlFieldName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(expressionText);
+            var expressionText = ExpressionHelper.GetExpressionText(expression);
+            var fullHtmlFieldName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(expressionText);
 
             // Check to make sure this is an enum.
             if (!enumModelType.IsEnum)
             {
-                throw new ArgumentException("This helper can only be used with enums. Type used was: " + enumModelType.FullName.ToString() + ".");
+                throw new ArgumentException("This helper can only be used with enums. Type used was: " + enumModelType.FullName + ".");
             }
 
             // Create string for Element.
@@ -38,19 +40,23 @@ namespace MvcEnumFlags
                 if (Convert.ToInt64(item) != 0)
                 {
                     var ti = htmlHelper.ViewData.TemplateInfo;
-                    var id = ti.GetFullHtmlFieldId(item.ToString());
+                    var id = fullHtmlFieldName + ti.GetFullHtmlFieldId(item.ToString());
                     var label = new TagBuilder("label");
                     label.Attributes["for"] = id;
                     var field = item.GetType().GetField(item.ToString());
 
                     // Add checkbox.
-                    var checkbox = new TagBuilder("input");
-                    checkbox.Attributes["id"] = id;
-                    checkbox.Attributes["name"] = fullHtmlFieldName;
-                    checkbox.Attributes["type"] = "checkbox";
-                    checkbox.Attributes["value"] = item.ToString();
-                    var model = metadata.Model as Enum;
-                    if ((model != null) && (model.HasFlag(item)))
+                    var checkbox = new TagBuilder("input")
+                    {
+                        Attributes =
+                        {
+                            ["id"] = id,
+                            ["name"] = fullHtmlFieldName,
+                            ["type"] = "checkbox",
+                            ["value"] = item.ToString()
+                        }
+                    };
+                    if ((metadata.Model is Enum model) && (model.HasFlag(item)))
                     {
                         checkbox.Attributes["checked"] = "checked";
                     }

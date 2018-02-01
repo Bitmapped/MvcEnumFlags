@@ -6,3 +6,6 @@
 /src/.vs
 /src/packages
 /src/obj
+/src/MvcEnumFlags/bin/Debug
+/src/MvcEnumFlags/bin
+/src/MvcEnumFlags/obj
