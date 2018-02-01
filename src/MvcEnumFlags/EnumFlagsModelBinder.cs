@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Web.Mvc;
 
 namespace MvcEnumFlags
@@ -15,19 +12,16 @@ namespace MvcEnumFlags
             if (value != null)
             {
                 // Get type of value.
-                Type valueType = bindingContext.ModelType;
+                var valueType = bindingContext.ModelType;
 
-                var rawValues = value.RawValue as string[];
-                if (rawValues != null)
+                // Try to parse enum values if present
+                if (value.RawValue is string[] rawValues)
                 {
-                    // Create instance of result object.
-                    var result = (Enum)Activator.CreateInstance(valueType);
-
+                    // Try to parse variable.
                     try
                     {
                         // Parse.
-                        result = (Enum)Enum.Parse(valueType, string.Join(",", rawValues));
-                        return result;
+                        return (Enum)Enum.Parse(valueType, string.Join(",", rawValues));
                     }
                     catch
                     {
