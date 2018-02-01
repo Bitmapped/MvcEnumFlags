@@ -17,7 +17,7 @@ namespace MvcEnumFlags
         /// </summary>
         /// <typeparam name="TModel">Type of flag enum</typeparam>
         /// <typeparam name="TEnum"></typeparam>
-        /// <param name="htmlHelper">Html helper.</param>
+        /// <param name="htmlHelper">Html Helper</param>
         /// <param name="expression">Item to generate checkboxes for</param>
         /// <returns>Html code for checkboxes.</returns>
         public static IHtmlString CheckBoxesForEnumFlagsFor<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TEnum>> expression)
@@ -33,19 +33,16 @@ namespace MvcEnumFlags
                 throw new ArgumentException("This helper can only be used with enums. Type used was: " + enumModelType.FullName + ".");
             }
 
-            // Create string for Element.
+            // Create HTML string for the item.
             var sb = new StringBuilder();
             foreach (Enum item in Enum.GetValues(enumModelType))
             {
                 if (Convert.ToInt64(item) != 0)
                 {
-                    var ti = htmlHelper.ViewData.TemplateInfo;
-                    var id = fullHtmlFieldName + ti.GetFullHtmlFieldId(item.ToString());
-                    var label = new TagBuilder("label");
-                    label.Attributes["for"] = id;
-                    var field = item.GetType().GetField(item.ToString());
+                    var templateInfo = htmlHelper.ViewData.TemplateInfo;
+                    var id = $"{fullHtmlFieldName}_{templateInfo.GetFullHtmlFieldId(item.ToString())}";
 
-                    // Add checkbox.
+                    // Create checkbox.
                     var checkbox = new TagBuilder("input")
                     {
                         Attributes =
@@ -60,12 +57,14 @@ namespace MvcEnumFlags
                     {
                         checkbox.Attributes["checked"] = "checked";
                     }
-                    sb.AppendLine(checkbox.ToString());
+                    sb.AppendLine(checkbox.ToString(TagRenderMode.SelfClosing));
+
+                    // Create label.
+                    var label = new TagBuilder("label") { Attributes = { ["for"] = id } };
+                    var field = item.GetType().GetField(item.ToString());
 
                     // Check to see if DisplayName attribute has been set for item.
-                    var displayName = field.GetCustomAttributes(typeof(DisplayNameAttribute), true)
-                        .FirstOrDefault() as DisplayNameAttribute;
-                    if (displayName != null)
+                    if (field.GetCustomAttributes(typeof(DisplayNameAttribute), true).FirstOrDefault() is DisplayNameAttribute displayName)
                     {
                         // Display name specified.  Use it.
                         label.SetInnerText(displayName.DisplayName);
@@ -73,9 +72,8 @@ namespace MvcEnumFlags
                     else
                     {
                         // Check to see if Display attribute has been set for item.
-                        var display = field.GetCustomAttributes(typeof(DisplayAttribute), true)
-                            .FirstOrDefault() as DisplayAttribute;
-                        label.SetInnerText((display != null) ? display.Name : item.ToString());
+                        var displayString = field.GetCustomAttributes(typeof(DisplayAttribute), true).FirstOrDefault() is DisplayAttribute display ? display.Name : item.ToString();
+                        label.SetInnerText(displayString);
                     }
                     sb.AppendLine(label.ToString());
 
